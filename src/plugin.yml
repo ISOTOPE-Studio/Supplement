@@ -1,0 +1,11 @@
+name: Supplement
+main: cc.isotopestudio.supplement.Supplement
+
+author: Mars
+description: Supplement
+website: http://isotopestudio.cc
+version: 1.0.0
+commands:
+  schest:
+    description: Supplement
+    usage: /<command>
