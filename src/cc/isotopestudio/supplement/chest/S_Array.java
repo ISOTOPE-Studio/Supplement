@@ -23,7 +23,7 @@ public class S_Array {
     private int interval;
     private int count = 0;
 
-    private final Set<Location> chestLocations = new HashSet<>();
+    private final List<Location> chestLocations = new ArrayList<>();
     private final Map<String, Package> packages = new HashMap<>();
 
 
@@ -57,8 +57,8 @@ public class S_Array {
         }
     }
 
-    public int getInterval() {
-        return interval;
+    public String getName() {
+        return name;
     }
 
     public void setInterval(int interval) {
@@ -75,6 +75,16 @@ public class S_Array {
         return packages.containsKey(name) ? packages.get(name) : null;
     }
 
+    public boolean removePackage(String name) {
+        Package pack = getPackage(name);
+        if (pack != null) {
+            pack.delete();
+            packages.remove(name);
+            return true;
+        }
+        return false;
+    }
+
     public Package createPackage(String packageName, int odd) {
         Package aPackage = new Package(name, packageName, odd);
         packages.put(packageName, aPackage);
@@ -85,6 +95,14 @@ public class S_Array {
 
     public void addChestLocation(Location loc) {
         chestLocations.add(loc);
+        saveChestLocation();
+    }
+
+    public List<Location> getChestLocations() {
+        return chestLocations;
+    }
+
+    public void saveChestLocation() {
         config.set("chests", null);
         List<String> list = new ArrayList<>();
         for (Location location : chestLocations) {
@@ -92,10 +110,6 @@ public class S_Array {
         }
         config.set("chests", list);
         chestData.save();
-    }
-
-    public Set<Location> getChestLocations() {
-        return chestLocations;
     }
 
     /*
@@ -108,6 +122,12 @@ public class S_Array {
         }
         count++;
         return false;
+    }
+
+    public void delete() {
+        chestData.set(name, null);
+        chestData.save();
+        arrays.remove(name);
     }
 
     @Override

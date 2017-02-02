@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.inventory.ItemStack;
 
 public class Util {
     public static String locationToString(Location loc) {
@@ -40,5 +41,10 @@ public class Util {
         material = Material.getMaterial(id);
         if (material != null) return material;
         return null;
+    }
+
+    public static String getItemName(ItemStack item) {
+        return (item.hasItemMeta() && item.getItemMeta().hasDisplayName()) ?
+                item.getItemMeta().getDisplayName() : item.getType().name();
     }
 }

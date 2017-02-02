@@ -41,7 +41,7 @@ public class ArrayUpdateTask extends BukkitRunnable {
                     }
                     break;
                 }
-                List<ItemStack> items = list.get(i).getItems();
+                List<ItemStack> items = new ArrayList<>(list.get(i).getItems());
 
                 for (Location location : array.getChestLocations()) {
                     if (location.getBlock().getType() == Material.CHEST) {

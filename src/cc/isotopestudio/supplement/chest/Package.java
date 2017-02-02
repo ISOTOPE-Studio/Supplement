@@ -29,6 +29,10 @@ public class Package {
         this.items = items;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public int getOdd() {
         return odd;
     }
@@ -39,10 +43,15 @@ public class Package {
     }
 
     public List<ItemStack> getItems() {
-        return new ArrayList<>(items);
+        return items;
     }
 
-    private void save() {
+    public void delete() {
+        chestData.set(arrayName + ".packages." + name, null);
+        chestData.save();
+    }
+
+    public void save() {
         ConfigurationSection section = chestData.createSection(arrayName + ".packages." + name);
         section.set("odd", odd);
         for (int i = 0; i < items.size(); i++) {
